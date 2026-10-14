@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1500" viewBox="0 0 1000 1500">
+<defs><radialGradient id="g"><stop offset="0" stop-color="#ebd9bd"/><stop offset=".25" stop-color="#b55242"/><stop offset="1" stop-color="#11100f"/></radialGradient></defs>
+<rect width="1000" height="1500" fill="#0d0c0b"/><circle cx="500" cy="650" r="440" fill="url(#g)" opacity=".85"/>
+<g fill="none" stroke="#f1e4cf" stroke-width="10" opacity=".86">
+<path d="M500 170c265 0 480 215 480 480S765 1130 500 1130 20 915 20 650 235 170 500 170z"/>
+<path d="M500 250c221 0 400 179 400 400s-179 400-400 400S100 871 100 650s179-400 400-400z"/>
+<path d="M500 330c177 0 320 143 320 320S677 970 500 970 180 827 180 650s143-320 320-320z"/>
+<path d="M500 410c133 0 240 107 240 240S633 890 500 890 260 783 260 650s107-240 240-240z"/>
+<path d="M500 490c88 0 160 72 160 160s-72 160-160 160-160-72-160-160 72-160 160-160z"/>
+</g>
+<text x="70" y="1260" fill="#f4eadb" font-family="Georgia,serif" font-size="118" letter-spacing="-4">VERTIGO</text>
+<text x="76" y="1332" fill="#d9c9b3" font-family="Arial,sans-serif" font-size="28" letter-spacing="8">ALFRED HITCHCOCK · 1958</text>
+</svg>

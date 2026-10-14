@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1500">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#d6c7a8"/>
+    <stop offset=".55" stop-color="#a7916d"/>
+    <stop offset="1" stop-color="#4d4439"/>
+  </linearGradient>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .11 0"/></filter>
+</defs>
+<rect width="1000" height="1500" fill="url(#g)"/>
+<rect width="1000" height="1500" filter="url(#grain)" opacity=".45"/>
+<circle cx="500" cy="560" r="280" fill="none" stroke="#191714" stroke-width="4" opacity=".35"/>
+<circle cx="500" cy="560" r="180" fill="#181613" opacity=".88"/>
+<path d="M500 315 650 715 350 715Z" fill="none" stroke="#dfd3bd" stroke-width="8" opacity=".85"/>
+<text x="80" y="1190" fill="#171512" font-size="132" font-family="Georgia,serif" letter-spacing="-6">TEOREMA</text>
+<text x="84" y="1270" fill="#26221d" font-size="34" font-family="Arial,sans-serif" letter-spacing="10">PASOLINI · 1968</text>
+<text x="86" y="1385" fill="#f1e9dc" font-size="24" font-family="Arial,sans-serif" letter-spacing="4">INCONNU CINEMA</text>
+</svg>

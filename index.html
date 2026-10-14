@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#070706">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="INCONNU CINEMA — cinemateca pessoal, diário e sala de exibição.">
+  <meta property="og:title" content="INCONNU CINEMA">
+  <meta property="og:description" content="Uma cinemateca pessoal.">
+  <title>INCONNU CINEMA</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="ambient" id="ambient" aria-hidden="true"></div>
+
+  <header class="site-header" id="siteHeader">
+    <button class="wordmark" data-home aria-label="INCONNU CINEMA">
+      <span class="mark">I</span>
+      <span class="word">INCONNU <i>CINEMA</i></span>
+    </button>
+    <nav class="desktop-nav" aria-label="Navegação">
+      <button class="nav-link active" data-section="home">Início</button>
+      <button class="nav-link" data-section="collection">Coleção</button>
+      <button class="nav-link" data-section="favorites">Favoritos</button>
+      <button class="nav-link" id="journalNav">Caderno</button>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="searchToggle" aria-label="Buscar" title="Buscar (/)">⌕</button>
+      <button class="icon-btn" id="randomBtn" aria-label="Filme aleatório" title="Aleatório (R)">✦</button>
+      <button class="profile-chip" id="journalBtn"><span id="watchedMini">0</span><i>vistos</i></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-gradient"></div>
+      <div class="hero-copy">
+        <p class="kicker"><span></span> FILME DO DIA</p>
+        <h1 id="heroTitle">Mulholland Drive</h1>
+        <div class="hero-meta" id="heroMeta"></div>
+        <p class="hero-synopsis" id="heroSynopsis"></p>
+        <div class="hero-actions">
+          <button class="primary-action" id="heroWatch"><span>▶</span> Assistir agora</button>
+          <button class="ghost-action" id="heroInfo">Ver detalhes</button>
+          <button class="circle-action" id="heroFavorite" aria-label="Favoritar">♡</button>
+        </div>
+      </div>
+      <div class="hero-poster-wrap">
+        <button class="hero-poster" id="heroPoster" aria-label="Abrir detalhes"></button>
+        <div class="hero-caption"><span id="heroCaptionDirector"></span><b id="heroCaptionYear"></b></div>
+      </div>
+      <div class="hero-index" id="heroIndex">01 / 06</div>
+      <button class="hero-next" id="heroNext" aria-label="Próximo destaque">↓</button>
+    </section>
+
+    <section class="continue section hidden" id="continueSection">
+      <div class="section-head">
+        <div><span class="eyebrow">RETOMAR</span><h2>Continue assistindo</h2></div>
+        <button class="section-link" data-section="collection">Ver coleção</button>
+      </div>
+      <div class="continue-rail" id="continueRail"></div>
+    </section>
+
+    <section class="curated section" id="curatedSection">
+      <div class="section-head">
+        <div><span class="eyebrow">CURADORIA INCONNU</span><h2>Salas da cinemateca</h2></div>
+        <p>Recortes da coleção — não algoritmos genéricos.</p>
+      </div>
+      <div class="rooms-grid" id="roomsGrid"></div>
+    </section>
+
+    <section class="collection section" id="collection">
+      <div class="collection-top">
+        <div class="section-head collection-title">
+          <div><span class="eyebrow">ARQUIVO</span><h2 id="collectionTitle">A coleção inteira</h2></div>
+          <p id="collectionCount"></p>
+        </div>
+        <div class="collection-controls">
+          <button class="filter-button active" data-filter="all">Todos</button>
+          <button class="filter-button" data-filter="unwatched">Não vistos</button>
+          <button class="filter-button" data-filter="cc">CC</button>
+          <button class="filter-button" data-filter="1960s">60s</button>
+          <button class="filter-button" data-filter="1970s">70s</button>
+          <button class="filter-button" data-filter="1980s">80s</button>
+          <select id="sortSelect" aria-label="Ordenar">
+            <option value="curated">Curadoria</option>
+            <option value="title">A–Z</option>
+            <option value="year-desc">Ano ↓</option>
+            <option value="year-asc">Ano ↑</option>
+            <option value="rating">Minha nota</option>
+          </select>
+        </div>
+      </div>
+      <div class="film-grid" id="filmGrid"></div>
+      <div class="empty hidden" id="emptyState">
+        <b>◌</b><h3>Nada por aqui.</h3><p>Tente remover um filtro ou mudar a busca.</p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-mark">INCONNU <i>CINEMA</i></div>
+      <p>Cinemateca pessoal · <span id="footerCount">38</span> títulos</p>
+      <button id="exportBtn">Exportar caderno</button>
+    </footer>
+  </main>
+
+  <nav class="mobile-nav" aria-label="Navegação móvel">
+    <button class="active" data-section="home"><span>⌂</span>Início</button>
+    <button data-section="collection"><span>▦</span>Filmes</button>
+    <button id="mobileSearch"><span>⌕</span>Buscar</button>
+    <button data-section="favorites"><span>♡</span>Favoritos</button>
+    <button id="mobileJournal"><span>◫</span>Caderno</button>
+  </nav>
+
+  <!-- Search command palette -->
+  <dialog class="search-dialog" id="searchDialog">
+    <div class="search-panel">
+      <div class="search-input-wrap">
+        <span>⌕</span><input id="globalSearch" autocomplete="off" placeholder="Busque título, diretor, gênero ou ano…"><kbd>ESC</kbd>
+      </div>
+      <div class="search-hint" id="searchHint">Digite para pesquisar em toda a cinemateca.</div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </dialog>
+
+  <!-- Fullscreen movie dossier -->
+  <dialog class="movie-dialog" id="movieDialog">
+    <div class="movie-dossier" id="movieDossier">
+      <div class="dossier-bg" id="dossierBg"></div>
+      <div class="dossier-gradient"></div>
+      <button class="close-btn" data-close="movieDialog" aria-label="Fechar">×</button>
+
+      <div class="dossier-layout">
+        <aside class="dossier-art">
+          <div class="poster-large" id="detailPoster"></div>
+          <div class="poster-tools">
+            <button id="detailFavorite">♡ Favoritar</button>
+            <button id="detailWatched">✓ Marcar visto</button>
+          </div>
+        </aside>
+
+        <article class="dossier-copy">
+          <div class="detail-tags" id="detailTags"></div>
+          <h2 id="detailTitle"></h2>
+          <p class="detail-director" id="detailDirector"></p>
+          <p class="detail-synopsis" id="detailSynopsis"></p>
+
+          <div class="detail-actions">
+            <button class="primary-action" id="detailWatch"><span>▶</span> Assistir</button>
+            <button class="action-pill" id="letterboxdBtn">◉ Letterboxd</button>
+            <button class="action-pill" id="raveBtn">✦ Rave</button>
+            <button class="action-pill" id="shareBtn">↗ Compartilhar</button>
+          </div>
+
+          <div class="personal-panel">
+            <div class="rating-block">
+              <span>MINHA NOTA</span>
+              <div class="stars" id="stars">
+                <button data-rate="1">★</button><button data-rate="2">★</button><button data-rate="3">★</button><button data-rate="4">★</button><button data-rate="5">★</button>
+              </div>
+              <button class="clear-rating" id="clearRating">limpar</button>
+            </div>
+            <label class="note-block">
+              <span>ANOTAÇÃO</span>
+              <textarea id="movieNote" placeholder="Uma frase, uma lembrança, uma cena…"></textarea>
+              <small id="noteStatus">salvo neste navegador</small>
+            </label>
+          </div>
+
+          <div class="source-line">
+            <span id="sourceStatus"></span>
+            <button id="subtitleBtn" class="hidden">Baixar CC</button>
+            <div id="alternateSources" class="alternate-sources"></div>
+            <a id="sourceLink" target="_blank" rel="noopener">Fonte ↗</a>
+          </div>
+
+          <section class="related-block">
+            <span class="eyebrow">NA MESMA PRATELEIRA</span>
+            <div class="related-row" id="relatedRow"></div>
+          </section>
+        </article>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Theatre player -->
+  <dialog class="player-dialog" id="playerDialog">
+    <div class="theatre">
+      <div class="theatre-top">
+        <div><b id="playerTitle"></b><span id="playerMeta"></span></div>
+        <div class="theatre-actions">
+          <button id="playerCC" class="hidden">CC</button>
+          <button id="playerExternal">Fonte ↗</button>
+          <button data-close="playerDialog">×</button>
+        </div>
+      </div>
+      <div class="theatre-stage" id="playerStage"></div>
+      <div class="theatre-bottom">
+        <span id="playerHint">Sala de exibição INCONNU</span>
+        <button id="playerWatched">✓ Marcar como visto</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Journal -->
+  <dialog class="journal-dialog" id="journalDialog">
+    <div class="journal-sheet">
+      <button class="close-btn" data-close="journalDialog">×</button>
+      <div class="journal-head">
+        <span class="eyebrow">CADERNO INCONNU</span>
+        <h2>Seu arquivo de cinema</h2>
+        <p>Favoritos, filmes vistos, avaliações e anotações ficam neste navegador.</p>
+      </div>
+      <div class="stats-grid">
+        <div><strong id="statTotal">38</strong><span>na coleção</span></div>
+        <div><strong id="statWatched">0</strong><span>vistos</span></div>
+        <div><strong id="statFavorites">0</strong><span>favoritos</span></div>
+        <div><strong id="statAverage">—</strong><span>nota média</span></div>
+      </div>
+      <div class="progress-card">
+        <div><span>COLEÇÃO ASSISTIDA</span><strong id="statPercent">0%</strong></div>
+        <div class="big-progress"><i id="statProgress"></i></div>
+      </div>
+      <div class="journal-columns">
+        <section><span class="eyebrow">POR DÉCADA</span><div id="decadeChart" class="decade-chart"></div></section>
+        <section><span class="eyebrow">ÚLTIMOS VISTOS</span><div id="lastWatched" class="last-watched"></div></section>
+      </div>
+      <div class="journal-actions">
+        <button class="primary-action" id="randomUnwatched">✦ Escolher um não visto</button>
+        <button class="ghost-action" id="journalExport">Exportar caderno</button>
+        <button class="ghost-action" id="journalImport">Importar</button>
+        <input type="file" id="journalFile" accept=".json,application/json" hidden>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Rave helper -->
+  <dialog class="rave-dialog" id="raveDialog">
+    <div class="rave-card">
+      <button class="close-btn" data-close="raveDialog">×</button>
+      <div class="rave-icon">✦</div>
+      <span class="eyebrow">WATCH PARTY</span>
+      <h2 id="raveTitle">Criar sala no Rave</h2>
+      <p>Copie a fonte deste filme e abra o Rave. A criação da sala acontece na sua conta do Rave.</p>
+      <div class="rave-source"><input id="raveSource" readonly><button id="copyRaveSource">Copiar</button></div>
+      <button class="primary-action wide" id="openRave">Abrir Rave</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
